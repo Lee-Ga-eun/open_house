@@ -1,9 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import './components/dbtest_'
+import DbTest from './components/dbtest_';
+//import Test from './components/dbtest';
 
 function App() {
   return (
+    <DbTest/>
+    /*
     <div className="App">
+      
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,8 +24,11 @@ function App() {
           Learn React
         </a>
         <p>HI</p>
+        <div>
+          <a href="http://localhost:5001/api/dbTest">api연결확인</a></div>
       </header>
     </div>
+  */
   );
 }
 
