@@ -3,10 +3,16 @@ import './App.css';
 import './components/dbtest_'
 import DbTest from './components/dbtest_';
 //import Test from './components/dbtest';
+//import Home from './components/home';
+import ColorSchemesExample from './components/Home';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <DbTest/>
+    <div className="App">
+      <ColorSchemesExample/>
+    </div>
+    // <DbTest/>
     /*
     <div className="App">
       
