@@ -1,0 +1,33 @@
+
+.img{
+    position: relative;
+    background-image: url(https://afar.brightspotcdn.com/dims4/default/cb0aa22/2147483647/strip/true/crop/1440x720+0+0/resize/1440x720!/quality/90/?url=https%3A%2F%2Fafar-media-production-web.s3.amazonaws.com%2Fbrightspot%2Fc7%2F25%2F99e4beaa4e90a382e5ce84e9290b%2Fswitzerland-guide-lede-marco-meyer-unsplash.jpg);                                                               
+    height: 60vh;
+    background-size: cover;
+}
+
+.imgcover{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);                                                                 
+    z-index:1;
+ }
+
+ .img .content{
+    position: absolute;
+    /* background-color: aliceblue; */
+    width:50%;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);                                                                   
+    /* font-size:5rem; */
+    /* color: white; */
+    z-index: 2;
+    /* text-align: center; */
+}
+
+.submit{
+    margin-top: 5%;
+}
+
