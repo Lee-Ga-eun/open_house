@@ -15,10 +15,12 @@
  }
 
  .img .content{
-    position: absolute;
+    position: absolute; 
+    display: flex;
     /* background-color: aliceblue; */
     width:50%;
     top:50%;
+    height: 50px;
     left:50%;
     transform: translate(-50%, -50%);                                                                   
     /* font-size:5rem; */
@@ -27,7 +29,17 @@
     /* text-align: center; */
 }
 
-.submit{
-    margin-top: 5%;
+.img .content .locationForm{
+    /* display: flex; */
+    align-items: center;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    height:100%;
+    width:30%;
+    border-radius: 4px;
+}
+
+.img .content .submit{
+    margin-left: 5%;
 }
 
