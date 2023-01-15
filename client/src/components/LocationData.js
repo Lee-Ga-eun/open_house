@@ -1,4 +1,5 @@
-var hangjungdong = {sido:[{sido:'11', codeNm:'서울특별시'},
+var hangjungdong = {sido:[
+{sido:'11', codeNm:'서울특별시'},
 {sido:'26', codeNm:'부산광역시'},
 {sido:'27', codeNm:'대구광역시'},
 {sido:'28', codeNm:'인천광역시'},
