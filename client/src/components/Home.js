@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import {hangjungdong} from "./LocationData";
 import { useState } from 'react';
+import {BrowserRouter as Router, Route, Switch, Link} from  'react-router-dom';
+import Header from './header';
 
 function Home() {
   const [val1, setVal1] = useState("");
@@ -16,9 +18,11 @@ function Home() {
   const { sido, sigugun, dong } = hangjungdong;
   console.log(sido);
 
+
   return (
     <>
-      <Navbar bg="success" variant="success">
+    <Header/>
+      {/* <Navbar bg="success" variant="success">
         <Container>
           <Navbar.Brand href="#home">Open House</Navbar.Brand>
           <Nav className="me-auto">
@@ -27,7 +31,7 @@ function Home() {
             <Nav.Link href="#pricing">Pricing</Nav.Link>
           </Nav>
         </Container>
-      </Navbar>
+      </Navbar> */}
 
       
       <div className={styles.img}>
@@ -52,6 +56,7 @@ function Home() {
               {sido.map((el) => (
                 <option key={el.sido} value={el.sido}>
                   {el.codeNm} 
+                  {console.log(val1)}
                 </option>
               ))}
             </Form.Select>
@@ -75,12 +80,15 @@ function Home() {
                 .map((el) => (
                   <option key={el.dong} value={el.dong}>
                     {el.codeNm}
+                    
                   </option>
                 ))}
       </Form.Select>
 
-          <Button className={styles.submit} variant="dark">GO</Button>
-            
+      {/* 버튼을 누르면 페이지를 이동할 수 있도록 구현한다 */}
+        <Link to="/test">
+          <Button className={styles.submit} variant="dark" onClick={()=>{alert(val1)}}>GO</Button>
+        </Link>    
 
         </div>
         <div className={styles.imgcover}></div>
