@@ -15,8 +15,17 @@ function Home() {
   const [val1, setVal1] = useState("");
   const [val2, setVal2] = useState("");
   const [val3, setVal3] = useState("");
+  const [sidoForNext, setSidoForNext]=useState("");
   const { sido, sigugun, dong } = hangjungdong;
-  console.log(sido);
+  console.log("sido",sido);
+
+  const onChange=(e)=>{
+    setVal2(e.target.value);
+    console.log("e.target.value",e.target.value);
+    setSidoForNext(e.target.value);
+
+  }
+
 
 
   return (
@@ -51,16 +60,18 @@ function Home() {
             {/*  */}
 
             {/* onChange 이벤트가 발생할 때, 앞으로 변할 e.target.value를 setVal1에 넣어줌으로써 val1값 리렌더링 */}
-            <Form.Select className={styles.locationForm} onChange={(e) => setVal1(e.target.value)}>
+            {/* <Form.Select className={styles.locationForm} onChange={(e) => setVal1(e.target.value)}> */}
+            <Form.Select className={styles.locationForm} onChange={onChange}>
+
               <option value="">시/도</option>
               {sido.map((el) => (
-                <option key={el.sido} value={el.sido}>
+                <option key={el.sido} value={el.codeNm}>
                   {el.codeNm} 
-                  {console.log(val1)}
                 </option>
               ))}
             </Form.Select>
             {/*  */}
+            {console.log(val1)}
 
             <Form.Select className={styles.locationForm} onChange={(e) => setVal2(e.target.value)}>
             <option value="">시/군/구</option>
@@ -86,7 +97,7 @@ function Home() {
       </Form.Select>
 
       {/* 버튼을 누르면 페이지를 이동할 수 있도록 구현한다 */}
-        <Link to="/test">
+        <Link to="/test" state={{sido:sidoForNext}}>
           <Button className={styles.submit} variant="dark" onClick={()=>{alert(val1)}}>GO</Button>
         </Link>    
 
@@ -94,6 +105,8 @@ function Home() {
         <div className={styles.imgcover}></div>
       </div>   
       <br />
+      {/* 지역명 출력 */}
+      {sidoForNext}
 
     </>
   );
