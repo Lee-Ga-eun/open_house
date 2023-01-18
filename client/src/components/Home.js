@@ -20,9 +20,23 @@ function Home() {
   console.log("sido",sido);
 
   const onChange=(e)=>{
-    setVal2(e.target.value);
+    setVal1(e.target.value);
     console.log("e.target.value",e.target.value);
-    setSidoForNext(e.target.value);
+    // 업데이트된 val1값은 11.
+    // {sido:'11' , codeNm:"서울특별시"}에서 서울특별시를 빼오고 싶다
+    // Object 이름은 sido
+    const findName= sido.map(i => [i.sido, i.codeNm]);
+    console.log("findName", findName);
+    console.log(findName);
+    console.log(sido);
+    //const onlyName= sido.map(i=> i.codeNm ? i.sido==e.target.value : "");
+    const onlyName= sido.find(i=> i.sido==e.target.value ? i.codeNm : "");
+    console.log(onlyName.codeNm);
+
+    console.log("onlyName",onlyName);
+
+    setSidoForNext(onlyName.codeNm);
+    //console.log("e.target.name",e.target.name);
 
   }
 
@@ -31,17 +45,6 @@ function Home() {
   return (
     <>
     <Header/>
-      {/* <Navbar bg="success" variant="success">
-        <Container>
-          <Navbar.Brand href="#home">Open House</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar> */}
-
       
       <div className={styles.img}>
         <div className={styles.content}>
@@ -62,16 +65,15 @@ function Home() {
             {/* onChange 이벤트가 발생할 때, 앞으로 변할 e.target.value를 setVal1에 넣어줌으로써 val1값 리렌더링 */}
             {/* <Form.Select className={styles.locationForm} onChange={(e) => setVal1(e.target.value)}> */}
             <Form.Select className={styles.locationForm} onChange={onChange}>
-
               <option value="">시/도</option>
               {sido.map((el) => (
-                <option key={el.sido} value={el.codeNm}>
+                <option key={el.sido} value={el.sido}>
                   {el.codeNm} 
                 </option>
               ))}
             </Form.Select>
             {/*  */}
-            {console.log(val1)}
+            {console.log("val1",val1)}
 
             <Form.Select className={styles.locationForm} onChange={(e) => setVal2(e.target.value)}>
             <option value="">시/군/구</option>
