@@ -3,20 +3,21 @@ import Header from "./header";
 import { useLocation } from 'react-router';
 
 
-function LinkTest(){
 
-
-
+function LinkTest(props){
     const location = useLocation();
-    console.log(location);
-    console.log(location.state.sido);
+    const sido=location.state.sido;
+    const sigungu=location.state.sigungu;
+    const dong=location.state.dong;
+
+
 
         return(
             <>
             <Header/>
             <div>
-                <p>{location.state.sido}</p>
-                링크 테스트 성공
+                <p>{sido} {sigungu} {dong} OPEN HOUSE</p>
+            
             </div>
 
             </>

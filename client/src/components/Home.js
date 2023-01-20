@@ -10,6 +10,9 @@ import {hangjungdong} from "./LocationData";
 import { useState } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link} from  'react-router-dom';
 import Header from './header';
+import LinkTest from './houses';
+import GetData from "./houses";
+
 
 function Home() {
   const [val1, setVal1] = useState("");
@@ -19,6 +22,7 @@ function Home() {
   const [siGuGunForLink, setSiGuGunForLink]=useState("");
   const [dongForLink, setDongForLink]=useState("");
   const [housesData, setHousesData] =useState([]);
+  const [val4, setVal4]=useState("");
 
   const { sido, sigugun, dong } = hangjungdong;
   const onChange=(e)=>{
@@ -70,19 +74,6 @@ function Home() {
     // //console.log("e.target.name",e.target.name);
 
   };
-  let arr=[]
-
-  const housesPage = (e) =>{
-
-
-    arr=[sidoForNext, siGuGunForLink, dongForLink];
-    console.log(arr);
-    //setHousesData(...housesData, arr);
-    //console.log("housesData",housesData);
-
-
-  };
-
 
   return (
     <>
@@ -137,8 +128,9 @@ function Home() {
       {console.log(val3)}
 
       {/* 버튼을 누르면 페이지를 이동할 수 있도록 구현한다 */}
-        <Link to="/test" state={{sido:arr}}>
-          <Button className={styles.submit} variant="dark" onClick={housesPage} id="go">GO</Button>
+        {/* <Link to="/test" state={{sido:{...locationProps}}}> */}
+        <Link to="test" state={{sido:sidoForNext, sigungu:siGuGunForLink , dong:dongForLink}}>
+          <Button className={styles.submit} variant="dark" value={val4}>GO</Button>  
         </Link>    
 
         </div>
