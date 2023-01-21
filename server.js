@@ -37,5 +37,16 @@ app.get('/api/dbTest',(req,res)=>{
 
 });
 
+app.get('/api/houses',(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*"); // cors 에러 해결
+    // res.send({message:"DB연결테스트"})
+    connection.query(
+        "SELECT * FROM TEST",
+        (err,rows,fields)=>{
+            res.send(rows);
+        }
+    );
+});
+
 
 app.listen(port,()=>console.log(`PORT OPEN SUCCESS, PORT NUM: ${port}`));
