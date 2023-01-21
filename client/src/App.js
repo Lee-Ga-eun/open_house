@@ -6,11 +6,21 @@ import DbTest from './components/dbtest_';
 //import Home from './components/home';
 import ColorSchemesExample from './components/Home';
 import "bootstrap/dist/css/bootstrap.min.css";
+import LinkTest from './components/houses';
+import {BrowserRouter as Router, Route,Routes, Switch, Link} from  'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <ColorSchemesExample/>
+
+
+    <Router>
+      <Routes>
+        <Route path='/' element={<ColorSchemesExample/>} />
+        <Route path='/houses' element={<LinkTest/>}/>
+      </Routes>
+    </Router>
+
     </div>
     // <DbTest/>
     /*
