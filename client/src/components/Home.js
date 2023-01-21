@@ -10,8 +10,7 @@ import {hangjungdong} from "./LocationData";
 import { useState } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link} from  'react-router-dom';
 import Header from './header';
-import LinkTest from './houses';
-import GetData from "./houses";
+import Card from 'react-bootstrap/Card';
 
 
 function Home() {
@@ -25,6 +24,11 @@ function Home() {
   const [val4, setVal4]=useState("");
 
   const { sido, sigugun, dong } = hangjungdong;
+
+  const onClick=()=>{
+    const checking = sidoForNext==="" ? alert("지역을 선택해주세요") : "";
+  };
+
   const onChange=(e)=>{
 
     // 시도 
@@ -79,6 +83,8 @@ function Home() {
     <>
     <Header/>
       
+
+    <div style={{backgroundColor:'rgb(214, 214, 214)'}}> {/* 전체 바디 */}
       <div className={styles.img}>
         <div className={styles.content}>
             {/* formbox 넣기 */}
@@ -129,21 +135,50 @@ function Home() {
 
       {/* 버튼을 누르면 페이지를 이동할 수 있도록 구현한다 */}
         {/* <Link to="/test" state={{sido:{...locationProps}}}> */}
-        <Link to="test" state={{sido:sidoForNext, sigungu:siGuGunForLink , dong:dongForLink}}>
-          <Button className={styles.submit} variant="dark" value={val4}>GO</Button>  
+        <Link to="/houses" state={{sido:sidoForNext, sigungu:siGuGunForLink , dong:dongForLink}}>
+          <Button className={styles.submit} variant="dark" value={val4} onClick={onClick}>GO</Button>  
         </Link>    
 
         </div>
         <div className={styles.imgcover}></div>
       </div>   
       <br />
-      {/* 지역명 출력 */}
-      <div>
-        <h1>{sidoForNext!=="" ? sidoForNext : ""}</h1>
-        <h1>{siGuGunForLink!==""? siGuGunForLink:""}</h1>
-        <h1>{dongForLink!==""? dongForLink: ""}</h1>
-      </div>
 
+{/* 카드 하단 */}
+      <div className={styles.cardAlign}>
+        <Card className={styles.card} style={{backgroundColor:'tomato'}}>
+        <Card.Body>
+          <Card.Title>Card Title</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+          <Button variant="light">Go somewhere</Button>
+        </Card.Body>
+      </Card>
+      <Card className={styles.card} style={{backgroundColor:'tomato'}}>
+        <Card.Body>
+          <Card.Title>Card Title</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+          <Button variant="light">Go somewhere</Button>
+        </Card.Body>
+      </Card>
+      <Card className={styles.card} style={{backgroundColor:'tomato'}}>
+        <Card.Body>
+          <Card.Title>Card Title</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+          <Button variant="light">Go somewhere</Button>
+        </Card.Body>
+      </Card>
+      </div>
+    
+    </div>
     </>
   );
 }
