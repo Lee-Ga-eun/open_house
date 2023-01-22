@@ -25,27 +25,50 @@ function LinkTest(props){
     const sigungu=location.state.sigungu;
     const dong=location.state.dong;
 
-    const [dataTest, setDataTest]=useState("");
+    const [dataTest, setDataTest]=useState([]);
 
 
     useEffect(()=>{
         axios.get("http://localhost:5001/api/houses")
         .then((res)=>{
-          console.log(res.data);
+            console.log(res.data);
 
-        setDataTest(res.data.id);
+        setDataTest(res.data);
+        
+        console.log("I am useState",typeof(dataTest));
+        console.log(Object.keys(res.data));
+
         })
-      },[])
+      },[]);
+
+      const DataOut = () =>{
+        try{
+            if (dataTest.length > 0){
+                return dataTest.map((i,index) => (<div key={index}>{i[0]}</div>))
+            }
+        }catch{
+            console.log("실패");
+        }
+
+      };
+      console.log("dataTest",dataTest[0]);
+
 
 
         return(
             <>
             <Header/>
+            <DataOut/>
+            {/* {dataTest[0] ? dataTest.map((i,index) => <div key={index}>{dataTest[index].NAME}</div>) :""} */}
+            {/* IF문으로 걸러내기 :: 지역 조회에 활용 가능할 것 같음.  */}
+            {dataTest.map((i,index) =>  dataTest[index].NAME=='LIV' ? <div key={index}>{dataTest[index].NAME}</div> : "")}
+
             <br></br>
             <div className="Container" style={{backgroundColor:'none', width:'80%',alignItems:'center',margin:'0% 10%',justifyContent:'center',}}>
                 <div>
                     <h3>{sido} {sigungu} {dong} OPEN HOUSE</h3>
-                    <h3>{dataTest}</h3>
+                    {/* <h3>{dataTest}</h3> */}
+                    
                 </div>
 
                 <UploadBtn/>
