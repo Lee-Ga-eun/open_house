@@ -24,8 +24,14 @@ function Upload(){
     const { sido, sigugun, dong } = hangjungdong;
 
     const [saveContent, setSaveContent] = useState({
-        name:'',
+        // name:'',
         title:'',
+        author:'',
+        sido:'',
+        sigungu:'',
+        dong:'',
+        content:'',
+        image:'',
     });
 
     const onChange=(e)=>{
@@ -36,7 +42,7 @@ function Upload(){
         const sidoSetChange=()=> sidoName!="" ? setVal1(e.target.value) : "";
         sidoSetChange();
         const sidoValueChange= e.target.id=="sido" ? setSidoForNext(sidoName) : "";
-        const a= sidoName!=="" ? setSaveContent({...saveContent, name:sidoName}): "";
+        const a= sidoName!=="" ? setSaveContent({...saveContent, sido:sidoName}): "";
         console.log(saveContent);
         
         //시군구
@@ -47,6 +53,8 @@ function Upload(){
     
         const sigunguSetChange=()=> sigunGuName!="" ? setVal2(e.target.value) : "";
         sigunguSetChange();
+        const b= sigunGuName!=="" ? setSaveContent({...saveContent, sigungu:sigunGuName}): "";
+
     
     
         //동
@@ -54,11 +62,18 @@ function Upload(){
         setDongForLink(dongName);
         const dongSetChange = () => dongForLink!=="" ? setVal3(e.target.value) : "";
         dongSetChange();
+        const c= dongName!=="" ? setSaveContent({...saveContent, dong:dongName}) :"";
       };
 
       const uploadPost=()=>{
         axios.post("http://localhost:5001/api/houses/upload",{
-            name:saveContent.name, 
+            sido:saveContent.sido, 
+            sigungu:saveContent.sigungu,
+            author:saveContent.author,
+            content:saveContent.content,
+            dong:saveContent.dong,
+            image:saveContent.image,
+            title:saveContent.title,
         }).then(()=>{
             alert('등록 완료!');
         })
@@ -73,7 +88,11 @@ function Upload(){
     {/* 제목 */}
     <InputGroup>
         {/* <InputGroup.Text>With textarea</InputGroup.Text> */}
-        <Form.Control as="textarea" aria-label="With textarea" placeholder="제목을 작성하세요!"/>
+        <Form.Control as="textarea" aria-label="With textarea" placeholder="제목을 작성하세요!" onChange={
+            (e)=>{
+                setSaveContent({...saveContent, title:e.target.value});
+            }
+        }/>
       </InputGroup>
         <br></br>
     {/* 지역 선택 */}
@@ -111,7 +130,9 @@ function Upload(){
       <InputGroup>
         {/* <InputGroup.Text>With textarea</InputGroup.Text> */}
         <Form.Control as="textarea" aria-label="With textarea" placeholder="글을 작성하세요!" 
-            onChange={(e)=>{console.log(e.target.value);}} />
+            onChange={(e)=>{
+                console.log(e.target.value);
+                setSaveContent({...saveContent,content:e.target.value})}} />
       </InputGroup>
       <br></br>
       {/* 사진 업로드 */}
