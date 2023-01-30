@@ -8,15 +8,18 @@ import axios from "axios";
 
 
 // openhouse들 컴포넌트
-function Houses(){
+function Houses({name}){
     return(
         <>
     <Card style={{marginTop:'10px'}}>
-      <Card.Body>This is some text within a card body.</Card.Body>
+      <Card.Body>{name} This is some text within a card body</Card.Body>
     </Card>
         </>
     )
 }
+Houses.defaultProps = {
+    name: ''
+  }
 
 // 전체 페이지 컴포넌트
 function LinkTest(props){
@@ -24,6 +27,8 @@ function LinkTest(props){
     const sido=location.state.sido;
     const sigungu=location.state.sigungu;
     const dong=location.state.dong;
+    console.log("시도",typeof(sido));
+    console.log(sido=='서울특별시');
 
     const [dataTest, setDataTest]=useState([]);
 
@@ -61,8 +66,7 @@ function LinkTest(props){
             <DataOut/>
             {/* {dataTest[0] ? dataTest.map((i,index) => <div key={index}>{dataTest[index].NAME}</div>) :""} */}
             {/* IF문으로 걸러내기 :: 지역 조회에 활용 가능할 것 같음.  */}
-            {dataTest.map((i,index) =>  dataTest[index].NAME=='LIV' ? <div key={index}>{dataTest[index].NAME}</div> : "")}
-
+            {dataTest.map((i,index) =>  dataTest[index].NAME==sido ? <div key={index}>{dataTest[index].NAME}</div> : "")}
             <br></br>
             <div className="Container" style={{backgroundColor:'none', width:'80%',alignItems:'center',margin:'0% 10%',justifyContent:'center',}}>
                 <div>
@@ -74,12 +78,14 @@ function LinkTest(props){
                 <UploadBtn/>
 
                 {/* 카드들 */}
+                {/* 해당 지역에 대한 포스팅이 있을 때 출력 */}
                 <div>
-                    <Houses/>
-                    <Houses/>
-                    <Houses/>
+
+                {dataTest.map((i,index) =>  dataTest[index].NAME===sido ? 
+                    <div key={index}><Houses name={sido}/></div> 
+                    : "")}
+
                 </div>
-                
 
             </div>
 
