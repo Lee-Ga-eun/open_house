@@ -8,6 +8,7 @@ import ColorSchemesExample from './components/Home';
 import "bootstrap/dist/css/bootstrap.min.css";
 import LinkTest from './components/houses';
 import {BrowserRouter as Router, Route,Routes, Switch, Link} from  'react-router-dom';
+import Upload from './components/Upload';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ColorSchemesExample/>} />
         <Route path='/houses' element={<LinkTest/>}/>
+        <Route path='/houses/upload' element={<Upload/>}/>
       </Routes>
     </Router>
 
