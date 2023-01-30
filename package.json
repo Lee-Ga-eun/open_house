@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Lee-Ga-eun/open_house#readme",
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
     "mysql": "^2.18.1",
