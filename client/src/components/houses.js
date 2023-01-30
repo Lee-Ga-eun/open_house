@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import Header from "./header";
 import { useLocation } from 'react-router';
 import Card from 'react-bootstrap/Card';
-import UploadBtn from './Upload';
+import UploadBtn from './UploadBtn';
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -66,7 +66,7 @@ function LinkTest(props){
             <DataOut/>
             {/* {dataTest[0] ? dataTest.map((i,index) => <div key={index}>{dataTest[index].NAME}</div>) :""} */}
             {/* IF문으로 걸러내기 :: 지역 조회에 활용 가능할 것 같음.  */}
-            {dataTest.map((i,index) =>  dataTest[index].NAME==sido ? <div key={index}>{dataTest[index].NAME}</div> : "")}
+            {/* {dataTest.map((i,index) =>  dataTest[index].NAME==sido ? <div key={index}>{dataTest[index].NAME}</div> : "")} */}
             <br></br>
             <div className="Container" style={{backgroundColor:'none', width:'80%',alignItems:'center',margin:'0% 10%',justifyContent:'center',}}>
                 <div>
