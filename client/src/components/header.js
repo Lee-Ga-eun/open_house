@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import {BrowserRouter as Router, Route, Switch, Link} from  'react-router-dom';
 
 
 function Header(){
@@ -10,7 +11,7 @@ function Header(){
         <>
           <Navbar bg="success" variant="success">
             <Container>
-              <Navbar.Brand href="#home">Open House</Navbar.Brand>
+              <Navbar.Brand href="/">Open House</Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="#features">Features</Nav.Link>
