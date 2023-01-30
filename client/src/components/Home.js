@@ -58,25 +58,6 @@ function Home() {
     const dongSetChange = () => dongForLink!=="" ? setVal3(e.target.value) : "";
     dongSetChange();
 
-
-
-    // console.log("e.target.value",e.target.value);
-    // // 업데이트된 val1값은 11.
-    // // {sido:'11' , codeNm:"서울특별시"}에서 서울특별시를 빼오고 싶다
-    // // Object 이름은 sido
-    // const findName= sido.map(i => [i.sido, i.codeNm]);
-    // console.log("findName", findName);
-    // console.log(findName);
-    // console.log(sido);
-    // //const onlyName= sido.map(i=> i.codeNm ? i.sido==e.target.value : "");
-    // const onlyName= sido.find(i=> i.sido==e.target.value ? i.codeNm : "");
-    // console.log(onlyName.codeNm);
-
-    // console.log("onlyName",onlyName);
-
-    // setSidoForNext(onlyName.codeNm);
-    // //console.log("e.target.name",e.target.name);
-
   };
 
   return (
