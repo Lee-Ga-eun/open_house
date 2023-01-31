@@ -2,7 +2,7 @@
 
 import { Link } from "react-router-dom"
 
-function UploadBtn(){
+function UploadBtn({name}){
     return (
     <>
     <Link to='/houses/upload'>
@@ -13,7 +13,7 @@ function UploadBtn(){
         color:'whitesmoke',
         marginLeft:'80%'
     
-    }}>+ 업로드</button>
+    }}>{name}</button>
     </Link>
     <br></br>
     </>
