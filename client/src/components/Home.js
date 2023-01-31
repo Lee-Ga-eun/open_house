@@ -11,6 +11,8 @@ import { useState } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link} from  'react-router-dom';
 import Header from './header';
 import Card from 'react-bootstrap/Card';
+import UploadBtn from './UploadBtn';
+import { useParams } from 'react-router-dom';
 
 
 function Home() {
@@ -63,7 +65,8 @@ function Home() {
   return (
     <>
     <Header/>
-      
+    <UploadBtn name="매물 바로 올리기"/>
+
 
     <div style={{backgroundColor:'rgb(214, 214, 214)'}}> {/* 전체 바디 */}
       <div className={styles.img}>
@@ -112,15 +115,16 @@ function Home() {
                   </option>
                 ))}
       </Form.Select>
-      {console.log(val3)}
+
 
       {/* 버튼을 누르면 페이지를 이동할 수 있도록 구현한다 */}
-        {/* <Link to="/test" state={{sido:{...locationProps}}}> */}
-        <Link to="/houses" state={{sido:sidoForNext, sigungu:siGuGunForLink , dong:dongForLink}}>
+
+        <Link to={`/houses?sido=${sidoForNext}&sigungu=${siGuGunForLink}&dong=${dongForLink}`} state={{sido:sidoForNext, sigungu:siGuGunForLink , dong:dongForLink}}>
           <Button className={styles.submit} variant="dark" value={val4} onClick={onClick}>GO</Button>  
         </Link>    
 
         </div>
+
         <div className={styles.imgcover}></div>
       </div>   
       <br />
@@ -158,7 +162,6 @@ function Home() {
         </Card.Body>
       </Card>
       </div>
-    
     </div>
     </>
   );
