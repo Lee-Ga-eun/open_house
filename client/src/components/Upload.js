@@ -1,17 +1,17 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Header from "./header";
 import {hangjungdong} from "./LocationData";
-import { useState } from 'react';
+import { React, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios, { Axios } from "axios";
 
 
 function Upload(){
-
+    const navigate=useNavigate();
     const [val1, setVal1] = useState("");
     const [val2, setVal2] = useState("");
     const [val3, setVal3] = useState("");
@@ -83,7 +83,10 @@ function Upload(){
         <>
         <Header/>
         {/* 폼 작성 */}
+    <Button onClick={()=>navigate(-1)} variant="primary">뒤로가기</Button>{' '}
+
     <div style={{margin:'10%'}}>
+
 
     {/* 제목 */}
     <InputGroup>
