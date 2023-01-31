@@ -82,7 +82,7 @@ app.post('/api/houses/upload',(req,res)=>{
 app.get('/api/houses/upload',(req,res)=>{
     // res.send({message:"DB연결테스트"})
     connection.query(
-        "SELECT * FROM TEST",
+        "SELECT * FROM Posting",
         (err,rows,fields)=>{
             res.send(rows);
         }
