@@ -122,7 +122,6 @@ function Home() {
         <Link to={`/houses?sido=${sidoForNext}&sigungu=${siGuGunForLink}&dong=${dongForLink}`} state={{sido:sidoForNext, sigungu:siGuGunForLink , dong:dongForLink}}>
           <Button className={styles.submit} variant="dark" value={val4} onClick={onClick}>GO</Button>  
         </Link>    
-
         </div>
 
         <div className={styles.imgcover}></div>
