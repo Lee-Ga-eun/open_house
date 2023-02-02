@@ -31,7 +31,9 @@ function Upload(){
         sigungu:'',
         dong:'',
         content:'',
-        image:'',
+        //image:'',
+        file:null,
+        fileName:'',
     });
 
     const onChange=(e)=>{
@@ -141,7 +143,7 @@ function Upload(){
       {/* 사진 업로드 */}
       <Form.Group controlId="formFileMultiple" className="mb-3">
         <Form.Label>사진 등록</Form.Label>
-        <Form.Control type="file" multiple />
+        <Form.Control type="file" multiple  />
       </Form.Group>
     
       <InputGroup>
