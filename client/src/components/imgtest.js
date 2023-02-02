@@ -21,9 +21,10 @@ function ImageTest(){
         setFile(e.target.files[0]);
         setFileName(e.target.value);
         console.log("fileName",e.target.value);
-
+        console.log("reader",e.target.files[0])
         const reader= new FileReader();
         reader.readAsDataURL(e.target.files[0]);
+        //reader.readAsArrayBuffer(e.target.files[0]);
         reader.onloadend=()=>{
             setImgFile(reader.result);
         };
@@ -84,17 +85,13 @@ function ImageTest(){
         <form name='accountFrm' onSubmit={handleSubmit} encType='multipart/form-data'>
 
         <p><input type='text' name='name'></input></p>
-        <p><input type='file' file={file} value={fileName} accept='image/jpg,impge/png,image/jpeg,image/gif' name='image' multiple onChange={onChangeFile}></input></p>
+        <p><input type='file' file={file} value={fileName} accept='image/*' name='image' multiple onChange={onChangeFile}></input></p>
         <p><input type='submit' value='회원가입'></input></p>
         </form>
         <ImageComponent identity={test}/> 
 
-        {/* {fileIdentity!==[] ? <div>{fileIdentity}</div> :""} */}
+        {/* {fileIdentity!==[] ? <div>{fileIdentity}</div> :""}  */}
 
-        {/* 폼 제출 ==> 서버에서 이미지 고유 번호 가져오기 ==> ${}에 고유번호 집어넣기 ==> 이미지 출력 성공? */}
-      
-      
-       {/* 이미지 미리보기 구현 --> FileReader 이용 */}
         <img
         src={imgFile ? imgFile :`/images/icon/user.png`}
         alt="프로필 이미지"
