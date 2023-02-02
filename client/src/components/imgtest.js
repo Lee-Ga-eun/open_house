@@ -10,17 +10,36 @@ import Form from 'react-bootstrap/Form';
 import RangeSlider from 'react-bootstrap-range-slider';
 
 function ImageTest(){
+    const [fileIdentity, setFileIdentity]=useState([])
+    const [test, setTest]=useState("");
     const [file,setFile]=useState();
     const [fileName,setFileName]=useState("");
+    const [imgFile, setImgFile] = useState(""); // 미리보기 위함
+
+
     const onChangeFile=(e)=>{
         setFile(e.target.files[0]);
         setFileName(e.target.value);
         console.log("fileName",e.target.value);
-    }
 
-    const ImageComponent = ()=>{
+        const reader= new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onloadend=()=>{
+            setImgFile(reader.result);
+        };
+    };
+
+    const ImageComponent = (identity)=>{
+        console.log(identity);
+        console.log(identity.identity);
+        <Final k={identity.identity}/>
         //axios.get('http://localhost:5001/image/28eabfada88f98a2273218217f10c042');
-        return <div><img src="http://localhost:5001/image/28eabfada88f98a2273218217f10c042" style={{height:'100px'}}></img></div>
+        return <div><img src={`http://localhost:5001/image/${identity.identity}`} style={{height:'100px'}}></img></div>
+    };
+
+    const Final =(k)=>{
+        return <div><img src={`http://localhost:5001/image/${k}`} style={{height:'100px'}}></img></div>
+
     };
 
     const handleSubmit = async (event) => {
@@ -47,30 +66,15 @@ function ImageTest(){
             headers:{
                   "Content-Type":"multipart/form-data",}
             //      "Access-Control-Allow-Origin": "*",}
-        }).then((res)=>res).then((result)=>{alert('등록완');console.log("data",{formData});});
+        }).then((res)=>res).then((result)=>{alert('등록완');console.log("data",{formData});}).then(
+            axios.get('http://localhost:5001/api/imgtest/fileByteName').then((res)=>setFileIdentity(res['data']))
+        ).then(()=>console.log("파일이름름ㄹ므",setTest(fileIdentity[0]['fileByteName'])));
 
-
+        console.log("test",test);
         for (let value of formData.values()) {
             console.log(value);
      }
       };
-
-    const register = (regiInfo) => {
-            axios.post("http://localhost:5001/api/imgtest",{
-                method:"post",
-                body: regiInfo,
-                headers: { "Content-Type": "multipart/form-data", Authorization: localStorage.getItem("access_token") }
-                
-            }).then(()=>{
-                for (let value of regiInfo.values()) {
-                    console.log("rego",value);
-             }
-            }).then((res)=>{
-                console.log(res);
-                //console.log(regiInfo);
-                alert('등록 완료!');
-            })
-          };
 
     return(
 
@@ -83,9 +87,19 @@ function ImageTest(){
         <p><input type='file' file={file} value={fileName} accept='image/jpg,impge/png,image/jpeg,image/gif' name='image' multiple onChange={onChangeFile}></input></p>
         <p><input type='submit' value='회원가입'></input></p>
         </form>
+        <ImageComponent identity={test}/> 
 
-        <ImageComponent/>
+        {/* {fileIdentity!==[] ? <div>{fileIdentity}</div> :""} */}
 
+        {/* 폼 제출 ==> 서버에서 이미지 고유 번호 가져오기 ==> ${}에 고유번호 집어넣기 ==> 이미지 출력 성공? */}
+      
+      
+       {/* 이미지 미리보기 구현 --> FileReader 이용 */}
+        <img
+        src={imgFile ? imgFile :`/images/icon/user.png`}
+        alt="프로필 이미지"
+        style={{width:'30%'}}
+        />
         </>
     )
 }
