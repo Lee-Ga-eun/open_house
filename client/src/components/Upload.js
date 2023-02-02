@@ -36,6 +36,24 @@ function Upload(){
         fileName:'',
     });
 
+    const [file,setFile]=useState();
+    const [fileName,setFileName]=useState("");
+    const [imgFile, setImgFile] = useState(""); // 미리보기 위함
+
+    const onChangeFile=(e)=>{
+      setFile(e.target.files[0]);
+      console.log(file);
+      setFileName(e.target.value);
+      console.log("fileName",e.target.value);
+      console.log("reader",e.target.files[0])
+      const reader= new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      //reader.readAsArrayBuffer(e.target.files[0]);
+      reader.onloadend=()=>{
+          setImgFile(reader.result);
+      };
+  }; // 미리보기 기능 
+
     const onChange=(e)=>{
 
         // 시도 
@@ -67,7 +85,7 @@ function Upload(){
         const c= dongName!=="" ? setSaveContent({...saveContent, dong:dongName}) :"";
       };
 
-      const uploadPost=()=>{
+      const uploadPosts=()=>{
         axios.post("http://localhost:5001/api/houses/upload",{
             sido:saveContent.sido, 
             sigungu:saveContent.sigungu,
@@ -81,13 +99,44 @@ function Upload(){
         })
       };
 
+      const uploadPost= async (event)=>{
+        event.preventDefault();
+        const formData=new FormData();
+        console.log("file",file)
+        formData.append('image',file);
+        formData.append('sido', saveContent.sido);
+        formData.append('sigungu', saveContent.sigungu);
+        formData.append('author',saveContent.author);
+        formData.append('content',saveContent.content);
+        formData.append('dong',saveContent.dong);
+        formData.append('title',saveContent.title);
+        for (let key of formData.keys()){
+          console.log("키값확인",key);
+      };
+
+        for (let value of formData.values()) {
+          console.log("value",value);}
+
+        await axios({
+          method:'post',
+          url:'http://localhost:5001/api/houses/upload',
+          data:formData,
+          headers:{
+            "Content-type":"multipart/form-data"
+          }
+        }).then((res)=>res).then((result)=>{alert("등록 성공");})
+
+
+      };
+
     return(
         <>
         <Header/>
         {/* 폼 작성 */}
     <Button onClick={()=>navigate(-1)} variant="primary">뒤로가기</Button>{' '}
 
-    <div style={{margin:'10%'}}>
+
+    <div style={{margin:'10%'}}> 
 
 
     {/* 제목 */}
@@ -141,25 +190,24 @@ function Upload(){
       </InputGroup>
       <br></br>
       {/* 사진 업로드 */}
-      <Form.Group controlId="formFileMultiple" className="mb-3">
+      <Form.Group controlId="formFileMultiple" className="mb-3" > 
         <Form.Label>사진 등록</Form.Label>
-        <Form.Control type="file" multiple  />
+        <Form.Control encType='multipart/form-data' type="file" multiple file={file} value={fileName} accept='image/*' name='image' onChange={onChangeFile} />
       </Form.Group>
-    
-      <InputGroup>
-        <InputGroup.Text>db 저장 테스트하기</InputGroup.Text> 
-        <Form.Control as="textarea" aria-label="With textarea" placeholder="제목을 작성하세요!" 
-            onChange={(e)=>
-                {console.log(e.target.value);
-                setSaveContent(e.target.value);}
-            }/>
-      </InputGroup>
+      <div>
+      <img
+        src={imgFile ? imgFile :`/images/icon/user.png`}
+        alt="프로필 이미지"
+        style={{width:'30%'}}
+        />
+    </div>
+    <br></br>
 
       {/* 버튼으로 등록 --> db에 넣기 --> 작성한 것 확인하는 페이지로 이동 - */}
-      <Button onClick={uploadPost} variant="danger" style={{backgroundColor:'tomato', borderColor:'white'}}>등록</Button>{' '}
+      <Button encType='multipart/form-data' onClick={uploadPost} variant="danger" style={{backgroundColor:'tomato', borderColor:'white'}}>등록</Button>{' '}
 
 
-    </div>
+    </div> 
 
         </>
 
