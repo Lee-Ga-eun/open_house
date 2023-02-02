@@ -5,8 +5,11 @@ const port=process.env.PORT || 5001;
 const fs=require('fs');
 const cors =require('cors');
 
+
+const multer=require('multer');
+const upload=multer({dest:'./upload'});
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
 // db
@@ -62,7 +65,8 @@ app.get('/api/houses',(req,res)=>{
     
 // });
 
-app.post('/api/houses/upload',(req,res)=>{
+
+app.post('/api/houses/upload', (req,res)=>{
     res.header("Access-Control-Allow-Origin", "*"); // cors 에러 해결
     const sido=req.body.sido;
     const author=req.body.author;
@@ -71,6 +75,7 @@ app.post('/api/houses/upload',(req,res)=>{
     const content=req.body.content;
     const image=req.body.image;
     const title=req.body.title;
+    //let image='http://localhost:5001/image/'+req.file.filename;
 
     const sqlQuery="INSERT INTO Posting(AUTHOR, SIDO, SIGUNGU, DONG, CONTENT, IMAGE,TITLE) VALUES (?,?,?,?,?,?,?)";
     connection.query(sqlQuery, [author, sido, sigungu,dong,content,image,title], (err,result)=>{
@@ -89,5 +94,42 @@ app.get('/api/houses/upload',(req,res)=>{
     );
 
 });
+app.use(express.json({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+app.use('/image',express.static('./upload'));
+
+app.post('/api/imgtest', upload.single('image'),(req,res,err)=>{
+    res.header("Access-Control-Allow-Origin", "*"); // cors 에러 해결
+    let sql= 'INSERT INTO IMGTEST(ID, NAME, profileImage,filename) VALUES(null,?,?,?)';
+    //console.log(req.data.name);
+    //console.log(req.body.profile_img);
+    let image='/image/'+req.file.filename;
+    console.log(image);
+    const name=req.body.name;
+    console.log("이름들어가는지확인",name);
+    console.log(req.file.name);
+    //const profile_img=req.file.filename;
+    //console.log(profile_img);
+    let filename=req.body.realfilename;
+    connection.query(sql, [name,image,filename],(rows, err,result)=>{
+        res.send(rows)
+        if(err){
+            console.log("에러발생",err);
+        };
+    })
+
+});
+
+app.get('/api/imgtest',(req,res)=>{
+    connection.query(
+        "SELECT * FROM IMGTEST", (err,rows,files)=>{
+            res.send(rows);
+            console.log("에러",err);
+        }
+    )
+});
+
+
+
 
 app.listen(port,()=>console.log(`PORT OPEN SUCCESS, PORT NUM: ${port}`));
