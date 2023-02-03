@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate,useNavigation } from "react-router-dom"
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Header from "./header";
 import {hangjungdong} from "./LocationData";
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import axios, { Axios } from "axios";
 
@@ -18,8 +18,8 @@ function Upload(){
     const [sidoForNext, setSidoForNext]=useState("");
     const [siGuGunForLink, setSiGuGunForLink]=useState("");
     const [dongForLink, setDongForLink]=useState("");
-    // const [housesData, setHousesData] =useState([]);
-    // const [val4, setVal4]=useState("");
+    const [num,setNum]=useState(""); // 다음 작성결과 확인 페이지 id 파라미터 설정을 위해
+    
   
     const { sido, sigugun, dong } = hangjungdong;
 
@@ -124,9 +124,44 @@ function Upload(){
           headers:{
             "Content-type":"multipart/form-data"
           }
-        }).then((res)=>res).then((result)=>{alert("등록 성공");})
+        }).then((res)=>res).then((result)=>{
+          alert("등록성공");
+          var dt = new Date();
+          console.log(dt.getHours(),dt.getMinutes(),dt.getSeconds());
+        }).then((res)=>{
+          setTimeout(()=>ThrowDetail(),5000);
+          //ThrowDetail();
+        })
+      };
 
 
+      // 여기서 할 일은: Link로 다음 페이지를 넘겨줘야 되고,
+      // axios.get으로부터 saveContent.author(작가이름)과 같은 이름을 가진 db와 --> ok
+      // 시간이 1분 정도 차이나는 행을 알아내서 --> ok
+      // 행 전체를 속성 처리해서 Link로 넘겨주며
+      // 그 행에 있는 id를 params로 설정한다
+      const ThrowDetail =async (history)=>{
+        console.log("throw Detail");
+        // 5분 내로 작성된 게시글만 가져온다
+        await axios.get("http://localhost:5001/api/houses/uploadTime")
+        .then((res)=>{
+          const dt=res.data;
+          for(var i=0;i<=dt.length-1;i++){
+            const tmp=dt[i];
+            console.log("tmp",tmp);
+            if(tmp['AUTHOR']==saveContent.author){ // 이 부분을 작성자로 바꾸고, id 값을 변수에 저장하여 link 파라미터로 만든다
+              // 어차피 url에서 id를 넣었기 때문이
+              // 컴포넌트에서 id 값을 받고, id와 일치하는 db 값을 가져오면 되지 않을까?
+              console.log("찾았다요놈",tmp);
+              setNum(tmp['ID']);
+              RenderUrl();
+              }};
+        });
+      };
+
+      const RenderUrl =()=>{
+        return <div><Link to={`/houses/upload/posting?id=${num}`}>
+          <Button>확인</Button> </Link> </div>
       };
 
     return(
@@ -148,6 +183,16 @@ function Upload(){
             }
         }/>
       </InputGroup>
+
+      <InputGroup>
+        {/* <InputGroup.Text>With textarea</InputGroup.Text> */}
+        <Form.Control as="textarea" aria-label="With textarea" placeholder="작성인" onChange={
+            (e)=>{
+                setSaveContent({...saveContent, author:e.target.value});
+            }
+        }/>
+      </InputGroup>
+
         <br></br>
     {/* 지역 선택 */}
     <Form.Select id='sido' onChange={onChange}>
@@ -205,9 +250,8 @@ function Upload(){
 
       {/* 버튼으로 등록 --> db에 넣기 --> 작성한 것 확인하는 페이지로 이동 - */}
       <Button encType='multipart/form-data' onClick={uploadPost} variant="danger" style={{backgroundColor:'tomato', borderColor:'white'}}>등록</Button>{' '}
-
-
     </div> 
+    <RenderUrl/>
 
         </>
 
