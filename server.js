@@ -84,12 +84,15 @@ app.post('/api/houses/upload', (req,res)=>{
     
 });*/
 
-app.get('/api/houses/upload',(req,res)=>{
+app.get('/api/houses/uploadTime',(req,res)=>{
     // res.send({message:"DB연결테스트"})
     connection.query(
-        "SELECT * FROM Posting",
+        //"SELECT * FROM Posting",
+        // 5분 이내에 있는 데이터만 가져오기
+        "SELECT * FROM Posting WHERE uploadedTime > now() - INTERVAL 5 MINUTE",
         (err,rows,fields)=>{
             res.send(rows);
+            console.log(rows);
         }
     );
 
@@ -112,6 +115,7 @@ app.post('/api/houses/upload', upload.single('image'),(req,res,err)=>{
     const sqlQuery="INSERT INTO Posting(AUTHOR, SIDO, SIGUNGU, DONG, CONTENT, IMAGE,TITLE) VALUES (?,?,?,?,?,?,?)";
     connection.query(sqlQuery, [author, sido, sigungu,dong,content,image,title], (err,result)=>{
         res.send('success');
+        
     });
     
 });
