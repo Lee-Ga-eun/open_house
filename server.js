@@ -120,6 +120,20 @@ app.post('/api/houses/upload', upload.single('image'),(req,res,err)=>{
     
 });
 
+app.get('/api/houses/upload',(req,res)=>{
+    // res.send({message:"DB연결테스트"})
+    connection.query(
+        //"SELECT * FROM Posting",
+        // 5분 이내에 있는 데이터만 가져오기
+        "SELECT * FROM Posting",
+        (err,rows,fields)=>{
+            res.send(rows);
+            console.log(rows);
+        }
+    );
+
+});
+
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use('/image',express.static('./upload'));
