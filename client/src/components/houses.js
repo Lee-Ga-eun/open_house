@@ -127,7 +127,9 @@ function LinkTest(props){
                         onChange={changeRange}
                         min='0'
                         max='10'
-                        step='5' />
+                        step='5'
+                        defaultValue='0'
+                        style={{width:'70%'}} />
 
             <UploadBtn name="+업로드"/>
             <br></br>
