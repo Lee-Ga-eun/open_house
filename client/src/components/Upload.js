@@ -85,7 +85,7 @@ function Upload(){
         const c= dongName!=="" ? setSaveContent({...saveContent, dong:dongName}) :"";
       };
 
-      const uploadPosts=()=>{
+      const uploadPosts=(err)=>{
         axios.post("http://localhost:5001/api/houses/upload",{
             sido:saveContent.sido, 
             sigungu:saveContent.sigungu,
@@ -95,6 +95,9 @@ function Upload(){
             image:saveContent.image,
             title:saveContent.title,
         }).then(()=>{
+          if(err){
+            alert('이미지를 업로드해주세요');
+          }
             alert('등록 완료!');
         })
       };
@@ -116,22 +119,26 @@ function Upload(){
 
         for (let value of formData.values()) {
           console.log("value",value);}
-
-        await axios({
-          method:'post',
-          url:'http://localhost:5001/api/houses/upload',
-          data:formData,
-          headers:{
-            "Content-type":"multipart/form-data"
-          }
-        }).then((res)=>res).then((result)=>{
-          alert("등록성공");
-          var dt = new Date();
-          console.log(dt.getHours(),dt.getMinutes(),dt.getSeconds());
-        }).then((res)=>{
-          setTimeout(()=>ThrowDetail(),5000);
-          //ThrowDetail();
-        })
+        try{
+            await axios({
+              method:'post',
+              url:'http://localhost:5001/api/houses/upload',
+              data:formData,
+              headers:{
+                "Content-type":"multipart/form-data"
+              }
+            }).then((res)=>res)
+            .then((result)=>{
+              alert("등록성공");
+              var dt = new Date();
+              console.log(dt.getHours(),dt.getMinutes(),dt.getSeconds());
+            }).then((res)=>{
+              setTimeout(()=>ThrowDetail(),5000);
+              //ThrowDetail();
+            })}
+        catch{
+          alert('업로드할 사진을 선택해주세요');
+        }
       };
 
 
