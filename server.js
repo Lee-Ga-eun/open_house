@@ -107,13 +107,15 @@ app.post('/api/houses/upload', upload.single('image'),(req,res,err)=>{
     const content=req.body.content;
     const title=req.body.title;
     let image='/image/'+req.file.filename;
+    let imageName='/image/'+req.file.filename;
+    console.log(imageName);
 
     console.log(req.file.filename);
 
     //let image='http://localhost:5001/image/'+req.file.filename;
 
-    const sqlQuery="INSERT INTO Posting(AUTHOR, SIDO, SIGUNGU, DONG, CONTENT, IMAGE,TITLE) VALUES (?,?,?,?,?,?,?)";
-    connection.query(sqlQuery, [author, sido, sigungu,dong,content,image,title], (err,result)=>{
+    const sqlQuery="INSERT INTO Posting(AUTHOR, SIDO, SIGUNGU, DONG, CONTENT, IMAGE,TITLE,IMAGE_NAME) VALUES (?,?,?,?,?,?,?,?)";
+    connection.query(sqlQuery, [author, sido, sigungu,dong,content,image,title,imageName], (err,result)=>{
         res.send('success');
         
     });
