@@ -9,10 +9,18 @@ function Uploaded(){
     let uploadId=params.get("id");
     console.log(uploadId);
 
-    const [author,setAuthor]=useState("");
-    const [sido, setSido] = useState("");
-    const [image,setImage]=useState("");
-    const [imageUrl,setImageUrl]= useState("");
+    const [saveContent, setSaveContent] = useState({
+        // name:'',
+        title:'',
+        author:'',
+        sido:'',
+        sigungu:'',
+        dong:'',
+        content:'',
+        image:'',
+        uploadedTime:'',
+    });
+
     // axios.get으로 id와 일치하는 데이터 뽑아오기 + 렌더링될 때만 (한 번만) 되도록
     useState(()=>{
     try{
@@ -31,14 +39,12 @@ function Uploaded(){
              }
             console.log("tmps",tmps);
             if(tmps!==0){
-                //tmps가 업데이트 됐다면
-                setAuthor(tmps['AUTHOR']);
-                setSido(tmps['SIDO']);
-                setImageUrl(tmps['IMAGE_NAME']);
-                let imageurltmp='http://localhost:5001'+tmps['IMAGE_NAME'];
-                console.log(imageurltmp);
-                setImage(imageurltmp);
-                //setImage(tmps['IMAGE']);
+                setSaveContent({...saveContent, 
+                    title:tmps['TITLE'],author:tmps['AUTHOR'], sido:tmps['SIDO'],
+                    sigungu:tmps['SIGUNGU'], image:'http://localhost:5001'+tmps['IMAGE_NAME'],
+                    dong:tmps['DONG'], content:tmps['CONTENT']});
+                console.log(saveContent);
+
 //                 let blob = new Blob((tmps['IMAGE'])['data'],{ type: 'image/png' });
 //                 console.log('blob',blob);
 //                 console.log(window.URL.createObjectURL(blob));
@@ -48,11 +54,8 @@ function Uploaded(){
 //                 setImage(tmps['IMAGE']);
 //                 toBase64((tmps['IMAGE'])['data']);
 //                 console.log(stringify((tmps['IMAGE'])['data']))
-
-            } ;
-        })
-    }catch{}
-},[]);
+                } ;})}catch{}
+        },[]);
 
     const toBase64=(arr) =>{
         //arr = new Uint8Array(arr) if it's an ArrayBuffer
@@ -67,11 +70,18 @@ function Uploaded(){
         <>
         <Header/>
         <div>
-            <h1>{author? author:""}</h1>
+            {/* <h1>{author? author:""}</h1> */}
         </div>
-        <h1>{sido? sido:""}</h1>
+        <h1>{saveContent.sido}</h1>
+        <div> <h2>제목 {saveContent.title}</h2>
+        <div> <h2>작가 {saveContent.author}</h2></div>
+        <div> <h2>내용 {saveContent.content}</h2></div>
         <div>
-            <img src={image} alt="urlimage" style={{width:'30%'}}/>
+        </div>
+
+</div>
+        <div>
+            <img src={saveContent.image} alt="urlimage" style={{width:'30%'}}/>
         </div>
         {/* <img src=`http://localhost:5001${{imageUrl}}` alt="실패"/> */}
 
