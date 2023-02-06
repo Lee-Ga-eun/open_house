@@ -2,9 +2,11 @@ import axios from "axios";
 import { stringify } from "qs";
 import { useState } from "react";
 import Header from "./header";
+import { Link, useNavigate,useNavigation } from "react-router-dom"
+
 
 function Uploaded(){
-
+    const navigate=useNavigate();
     const params=new URLSearchParams(window.location.search);
     let uploadId=params.get("id");
     console.log(uploadId);
@@ -69,10 +71,12 @@ function Uploaded(){
     return(
         <>
         <Header/>
+        <button onClick={()=>navigate(-2)} variant="primary">뒤로가기</button>{' '}
+
         <div>
             {/* <h1>{author? author:""}</h1> */}
         </div>
-        <h1>{saveContent.sido}</h1>
+        <h1>{saveContent.sido} {saveContent.sigungu} {saveContent.dong}</h1>
         <div> <h2>제목 {saveContent.title}</h2>
         <div> <h2>작가 {saveContent.author}</h2></div>
         <div> <h2>내용 {saveContent.content}</h2></div>
