@@ -31,7 +31,6 @@ HousesCard.defaultProps = {
 function LinkTest(props){
 
     const [ rangeValue, setRangeValue ] = useState(0); 
-
     const params=new URLSearchParams(window.location.search);
     let sido=params.get("sido");
     let sigungu=params.get("sigungu");
@@ -55,15 +54,19 @@ function LinkTest(props){
         }catch{}};
 
         //const [tmp,setTmp]=useState([]);
+    const [totalsize,setTotalSize]=useState(0);
+    var sizeofdata=0;
       const ShowDetail=()=>{
         if (rangeValue == 0){
             let tmp=[];
-            for(var i=0;i<=100;i++){
+            for(var i=0;i<=dataTest.length;i++){
                 var tmpData=dataTest[i];
-                if(tmpData!=undefined && tmpData['SIDO'] == '서울특별시'){
+                if(tmpData!=undefined && tmpData['SIDO'] == sido){
                     tmp.push(tmpData); // useState를 쓰면 state가 변경될 때마다 리렌더링돼서 무한로딩 발생함
                 };
              };
+            sizeofdata=tmp.length;
+            setTotalSize(sizeofdata);
             tmp=tmp.slice(5*page-5,5*page);
             console.log(tmp);
             return(
@@ -125,13 +128,13 @@ function LinkTest(props){
                     rangeValue==5 ? <div>{sido} {sigungu} OPEN HOUSE</div> :
                     rangeValue==10 ? <div>{sido} {sigungu} {dong} OPEN HOUSE</div> :""}</p>
 
-
+                <div>{sizeofdata}</div>
                 <ShowDetail/> {/* 카드 출력 */}
 
                 <Pagination
                 activePage={page} // 현재 클릭되어 있는 페이지
                 itemsCountPerPage={5} //한 페이지 당 아이템수
-                totalItemsCount={100} // 총 아이템수
+                totalItemsCount={totalsize} // 총 아이템수
                 pageRangeDisplayed={5}
                 prevPageText={'‹'}
                 nextPageText={'›'}
