@@ -2,10 +2,13 @@ import axios from "axios";
 import { stringify } from "qs";
 import { useState } from "react";
 import Header from "./header";
-import { Link, useNavigate,useNavigation } from "react-router-dom"
+import { Link, useNavigate,useNavigation,useLocation } from "react-router-dom"
 
 
 function Uploaded(){
+    const location=useLocation();
+    let urlState=location['state'].urlState;
+    console.log(urlState);
     const navigate=useNavigate();
     const params=new URLSearchParams(window.location.search);
     let uploadId=params.get("id");
@@ -59,19 +62,18 @@ function Uploaded(){
                 } ;})}catch{}
         },[]);
 
-    const toBase64=(arr) =>{
-        //arr = new Uint8Array(arr) if it's an ArrayBuffer
-        return btoa(
-        arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
-        );
-    };
-
     // ------------------
 
     return(
         <>
         <Header/>
-        <button onClick={()=>navigate(-2)} variant="primary">뒤로가기</button>{' '}
+        {/* 마지막 경로 체크 하고 houses에서 들어온거면 -1, uploaded로 들어온 거면 -2 */}
+        {/* 설정하는 게 어려우면, houses에서 넘어온 건: props.back을 숫자 1로 설정 */}
+        {/* uploaded에선 2를 넘겨주고, 삼중연산자로 분류 */}
+        {urlState==='fromHouses' ? 
+        <button onClick={()=>navigate(-1)} variant="primary">뒤로가기</button>
+        : <button onClick={()=>navigate(-2)} variant="primary">뒤로가기</button>
+    }
 
         <div>
             {/* <h1>{author? author:""}</h1> */}
@@ -87,7 +89,6 @@ function Uploaded(){
         <div>
             <img src={saveContent.image} alt="urlimage" style={{width:'30%'}}/>
         </div>
-        {/* <img src=`http://localhost:5001${{imageUrl}}` alt="실패"/> */}
 
 
 
