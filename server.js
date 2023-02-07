@@ -127,7 +127,7 @@ app.get('/api/houses/upload',(req,res)=>{
     connection.query(
         //"SELECT * FROM Posting",
         // 5분 이내에 있는 데이터만 가져오기
-        "SELECT * FROM Posting",
+        "SELECT * FROM Posting ORDER BY uploadedTime DESC;",
         (err,rows,fields)=>{
             res.send(rows);
             console.log(rows);
