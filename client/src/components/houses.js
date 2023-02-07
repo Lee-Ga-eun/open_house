@@ -10,16 +10,34 @@ import Form from 'react-bootstrap/Form';
 import RangeSlider from 'react-bootstrap-range-slider';
 import Pagination from "react-js-pagination";
 import './Paging.css';
+import { Link } from "react-router-dom";
 
 
 // openhouse들 컴포넌트
-function HousesCard({ind,sido,sigungu,dong}){
+function HousesCard({ind,sido,sigungu,dong, imgUrl,uplodDate,id}){
     
     return(
         <>
-    <Card style={{marginTop:'10px'}}>
-      <Card.Body>{ind}{sido}{sigungu}{dong} This is some text within a card body</Card.Body>
+    <Link to={`/houses/upload/posting?id=${id}`} style={{ textDecoration: "none", color:"black"}}>
+    <Card style={{marginTop:'10px'}} >
+      <Card.Body>
+        <div>
+        {sido} {sigungu} {dong} 
+        </div> 
+        <div> 
+        This is some text within a card body
+        </div>
+        <div>
+            {imgUrl!==null ? 
+            <img src={`http://localhost:5001`+imgUrl} alt="urlimage" style={{width:'50%'}}/>
+            :""}
+        </div>
+        <div>
+            {uplodDate}
+        </div>
+        </Card.Body>
     </Card>
+    </Link>
         </>
     )
 }
@@ -75,7 +93,8 @@ function LinkTest(props){
                     <div key={index}><HousesCard sido={dataTest[index].SIDO} sigungu={dataTest[index].SIGUNGU} dong={dataTest[index].DONG}/></div> 
                     : "")}</div> */}
                     {tmp.map((i,index) =>  tmp[index].SIDO===sido? 
-                        <div key={index}><HousesCard ind={index} sido={tmp[index].SIDO} sigungu={tmp[index].SIGUNGU} dong={tmp[index].DONG}/></div> 
+                        <div key={index}><HousesCard ind={index} sido={tmp[index].SIDO} sigungu={tmp[index].SIGUNGU} dong={tmp[index].DONG} imgUrl={tmp[index].IMAGE_NAME}
+                        uplodDate={(tmp[index].uploadedTime).slice(0,10)} id={tmp[index].ID}/></div> 
                         : "")}</div>
             )
         }else if(rangeValue==5){
