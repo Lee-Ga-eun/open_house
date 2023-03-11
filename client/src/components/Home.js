@@ -67,10 +67,11 @@ function Home() {
     <Header/>
     <UploadBtn name="매물 바로 올리기"/>
 
-
     <div style={{backgroundColor:'rgb(214, 214, 214)'}}> {/* 전체 바디 */}
       <div className={styles.img}>
+        
         <div className={styles.content}>
+
             {/* formbox 넣기 */}
             <Form.Select aria-label="Disabled select example" disabled className={styles.locationForm}>
             <option>대한민국</option>
@@ -132,32 +133,33 @@ function Home() {
       <div className={styles.cardAlign}>
         <Card className={styles.card} style={{backgroundColor:'tomato'}}>
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title>보고 싶은 동네가 있나요?</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            <br></br>
+            지역을 검색해서 올라온 <br></br>
+            OPEN HOUSE를 찾아보세요!
           </Card.Text>
-          <Button variant="light">Go somewhere</Button>
         </Card.Body>
       </Card>
       <Card className={styles.card} style={{backgroundColor:'tomato'}}>
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title>자유롭게 방문 시각을 정하세요</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            <br></br>
+            바쁘다 바빠 현대사회!
+            <br></br>
+            집주인과 시간을 맞춰 편하게 방문하세요!
           </Card.Text>
-          <Button variant="light">Go somewhere</Button>
         </Card.Body>
       </Card>
       <Card className={styles.card} style={{backgroundColor:'tomato'}}>
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title>안전을 책임집니다</Card.Title>
+          - cctv 카메라 제공<br></br>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            
           </Card.Text>
-          <Button variant="light">Go somewhere</Button>
+          <Button variant="light">자세히 보기</Button>
         </Card.Body>
       </Card>
       </div>
