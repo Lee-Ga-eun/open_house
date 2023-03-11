@@ -18,14 +18,16 @@ function HousesCard({ind,sido,sigungu,dong, imgUrl,uplodDate,id}){
     
     return(
         <>
-    <Link to={`/houses/upload/posting?id=${id}`} style={{ textDecoration: "none", color:"black"}}>
+    {/* <Link to={{pathname:`/houses/upload/posting?id=${id}`,state:{previousUrl:1},}} style={{ textDecoration: "none", color:"black"}}> */}
+    {/* <Link to={{pathname:`/houses/upload/posting`, search:`?id=${id}`}} state={{previousUrl:"what"}} style={{ textDecoration: "none", color:"black"}}> */}
+    {/* <Link to={{pathname:`/houses/upload/posting`, search:`?id=${id}`, state:{previousUrl:'state'}}} style={{ textDecoration: "none", color:"black"}}> */}
+    <Link to={`/houses/upload/posting?id=${id}`} state={{urlState:'fromHouses'}} style={{ textDecoration: "none", color:"black"}}>
     <Card style={{marginTop:'10px'}} >
       <Card.Body>
         <div>
         {sido} {sigungu} {dong} 
         </div> 
         <div> 
-        This is some text within a card body
         </div>
         <div>
             {imgUrl!==null ? 
@@ -100,13 +102,16 @@ function LinkTest(props){
         }else if(rangeValue==5){
             return(
                 <div>{dataTest.map((i,index) =>  dataTest[index].SIDO===sido && dataTest[index].SIGUNGU ===sigungu? 
-                    <div key={index}><HousesCard sido={dataTest[index].SIDO} sigungu={dataTest[index].SIGUNGU} dong={dataTest[index].DONG}/></div> 
+                    <div key={index}><HousesCard sido={dataTest[index].SIDO} sigungu={dataTest[index].SIGUNGU} dong={dataTest[index].DONG}
+                    imgUrl={dataTest[index].IMAGE_NAME} uplodDate={(dataTest[index].uploadedTime).slice(0,10)} id={dataTest[index].ID}/></div> 
                     : "")}</div>
             )
         }else if(rangeValue==10){
             return(
                 <div>{dataTest.map((i,index) =>  dataTest[index].SIDO===sido && dataTest[index].SIGUNGU ===sigungu&&dataTest[index].DONG ===dong? 
-                    <div key={index}><HousesCard sido={dataTest[index].SIDO} sigungu={dataTest[index].SIGUNGU} dong={dataTest[index].DONG}/></div> 
+                    <div key={index}><HousesCard sido={dataTest[index].SIDO} sigungu={dataTest[index].SIGUNGU} dong={dataTest[index].DONG}
+                    imgUrl={dataTest[index].IMAGE_NAME}
+                        uplodDate={(dataTest[index].uploadedTime).slice(0,10)} id={dataTest[index].ID}/></div> 
                     : "")}</div>
             )
         }
@@ -147,7 +152,7 @@ function LinkTest(props){
                     rangeValue==5 ? <div>{sido} {sigungu} OPEN HOUSE</div> :
                     rangeValue==10 ? <div>{sido} {sigungu} {dong} OPEN HOUSE</div> :""}</p>
 
-                <div>{sizeofdata}</div>
+                {/* <div>{sizeofdata}</div> */}
                 <ShowDetail/> {/* 카드 출력 */}
 
                 <Pagination
